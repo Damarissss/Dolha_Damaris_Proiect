@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Dolha_Damaris_Proiect.Models.LibraryViewModels.OrderGroup>
+@{
+    ViewData["Title"] = "Ordered movies statistics";
+}
+
+<h2>Statistics</h2>
+
+<table>
+    <tr>
+        <th width="170">
+            Order date
+        </th>
+        <th width="170">
+            Ordered movies
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @item.MovieCount
+            </td>
+        </tr>
+    }
+</table>
