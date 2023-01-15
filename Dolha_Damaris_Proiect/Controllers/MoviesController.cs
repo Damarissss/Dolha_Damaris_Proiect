@@ -292,5 +292,11 @@ namespace Dolha_Damaris_Proiect.Controllers
                 };
             return View(await data.AsNoTracking().ToListAsync());
         }
+
+        // Chat
+        public IActionResult Chat()
+        {
+            return View();
+        }
     }
 }
