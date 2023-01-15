@@ -11,9 +11,13 @@ using Dolha_Damaris_Proiect.Models.LibraryViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
 using System.Net;
 using System.Security.Policy;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Dolha_Damaris_Proiect.Controllers
 {
+    [Authorize(Roles = "Employee, Manager")]
+
     public class MoviesController : Controller
     {
         private readonly LibraryContext _context;
@@ -24,6 +28,7 @@ namespace Dolha_Damaris_Proiect.Controllers
         }
 
         // GET: Movies
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Movies
@@ -34,6 +39,7 @@ namespace Dolha_Damaris_Proiect.Controllers
         }
 
         // GET: Movies/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Movies == null)
@@ -279,7 +285,7 @@ namespace Dolha_Damaris_Proiect.Controllers
 
         // Statistics
         // Metoda utilizează o interogare LINQ care grupează entitățile movies după data comenzii, calculând numărul de filme comandate
-        // pentru fiecare dată calendaristică și salvează rezultatul într-o colecție "OrderGroup"
+        // pentru fiecare dată calendaristică și salvează rezultatul într-o colecție "OrderGroup".
         public async Task<ActionResult> Statistics()
         {
             IQueryable<OrderGroup> data =

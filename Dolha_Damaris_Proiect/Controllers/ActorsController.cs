@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Dolha_Damaris_Proiect.Data;
 using Dolha_Damaris_Proiect.Models;
 using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dolha_Damaris_Proiect.Controllers
 {
+    [Authorize(Policy = "OnlySales")]
     public class ActorsController : Controller
     {
         private readonly LibraryContext _context;
@@ -22,6 +24,7 @@ namespace Dolha_Damaris_Proiect.Controllers
         }
 
         // GET: Actors
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -58,6 +61,7 @@ namespace Dolha_Damaris_Proiect.Controllers
         }
 
         // GET: Actors/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Actors == null)
@@ -227,7 +231,6 @@ namespace Dolha_Damaris_Proiect.Controllers
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
         }
-
         private bool ActorExists(int id)
         {
           return _context.Actors.Any(e => e.Id == id);

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dolha_Damaris_Proiect.Data;
 using Dolha_Damaris_Proiect.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Dolha_Damaris_Proiect.Controllers
 {
+    [Authorize(Policy = "OnlySales")]
     public class CinemasController : Controller
     {
         private readonly LibraryContext _context;
@@ -20,12 +23,14 @@ namespace Dolha_Damaris_Proiect.Controllers
         }
 
         // GET: Cinemas
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
               return View(await _context.Cinemas.ToListAsync());
         }
 
         // GET: Cinemas/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Cinemas == null)

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dolha_Damaris_Proiect.Data;
 using Dolha_Damaris_Proiect.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dolha_Damaris_Proiect.Controllers
 {
+    [Authorize(Policy = "SalesManager")]
     public class CustomersController : Controller
     {
         private readonly LibraryContext _context;
